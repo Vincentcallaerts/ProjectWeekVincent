@@ -127,12 +127,12 @@ namespace ProjectWeekVincent
                     }                   
                     
                     //hieraan beginnen
-                    Console.WriteLine("1. Blackjack: ");
-                    Console.WriteLine("2. Slotmachien: ");
-                    Console.WriteLine("3. Memorie: ");
-                    Console.WriteLine("4. Uitloggen: ");
+                    Console.WriteLine("1. Blackjack ");
+                    Console.WriteLine("2. Slotmachien ");
+                    Console.WriteLine("3. Memorie ");
+                    Console.WriteLine("4. Uitloggen ");
                     keuze = InputIntKeuze(4);
-
+                    Random random = new Random();
                     switch (keuze)
                     {
                         case 1:
@@ -143,14 +143,15 @@ namespace ProjectWeekVincent
                             
                             bool runningBlackjack = true;
                             bool runninggame = false;
-                            Random random = new Random();
+                            
 
                             while (runningBlackjack)
                             {
+                                
                                 string[] handSpeler = new string[10];
                                 string[] handDealer = new string[10];
-                                Console.WriteLine("1. Speel Spel");
-                                Console.WriteLine("2. Stop");
+                                Console.WriteLine("1. Speel Spel.");
+                                Console.WriteLine("2. Stop.");
                                 keuze = InputIntKeuze(2);
                                 runninggame = true;
                                 switch (keuze)
@@ -159,13 +160,12 @@ namespace ProjectWeekVincent
                                         Console.Clear();
                                         TrekKaarten(handSpeler, kaartenboek, random);
                                         TrekKaarten(handSpeler, kaartenboek, random);
-                                        LaatBoekKaartenAfdrukken(handSpeler);
                                         Console.WriteLine(WaardeHand(handSpeler));
 
                                         
                                         if (WaardeHand(handSpeler) == 21)
                                         {
-                                            Console.WriteLine("Je hebt gewonnen er is 25 euro aan je buget toegevoed");
+                                            Console.WriteLine("Je hebt gewonnen er is 25 euro aan je buget toegevoed.");
                                             gebruikers[gebruiker, 2] = Convert.ToString(Convert.ToInt32(gebruikers[gebruiker, 2]) + 25);
                                             SlaagGebruikersOp(gebruikers, bestandsnaam);
                                             runninggame = false;
@@ -173,10 +173,11 @@ namespace ProjectWeekVincent
                                         
                                         while (runninggame)
                                         {
+                                            LaatBoekKaartenAfdrukken(handSpeler);
                                             Console.WriteLine();
                                             Console.WriteLine($"Je hand heeft nu {WaardeHand(handSpeler)} als waarde.");
-                                            Console.WriteLine("1. Trek kaart");
-                                            Console.WriteLine("2. Stop");
+                                            Console.WriteLine("1. Trek kaart.");
+                                            Console.WriteLine("2. Stop.");
                                             keuze = InputIntKeuze(2);
                                             switch (keuze)
                                             {
@@ -186,7 +187,7 @@ namespace ProjectWeekVincent
                                                     LaatBoekKaartenAfdrukken(handSpeler);
                                                     if (WaardeHand(handSpeler) == 21)
                                                     {
-                                                        Console.WriteLine("Je hebt gewonnen er is 25 euro aan je buget toegevoed");
+                                                        Console.WriteLine("Je hebt gewonnen er is 25 euro aan je buget toegevoed.");
                                                         gebruikers[gebruiker, 2] = Convert.ToString(Convert.ToInt32(gebruikers[gebruiker, 2]) + 25);
                                                         SlaagGebruikersOp(gebruikers, bestandsnaam);
                                                         runninggame = false; ;
@@ -194,7 +195,7 @@ namespace ProjectWeekVincent
                                                  
                                                     else if (WaardeHand(handSpeler) >= 21)
                                                     {
-                                                        Console.WriteLine("Je hebt verloren er is 10 euro van je buget afgehaald");
+                                                        Console.WriteLine("Je hebt verloren er is 10 euro van je buget afgehaald.");
                                                         gebruikers[gebruiker, 2] = Convert.ToString(Convert.ToInt32(gebruikers[gebruiker, 2]) - 10);
                                                         SlaagGebruikersOp(gebruikers, bestandsnaam);
                                                         runninggame = false;
@@ -202,9 +203,11 @@ namespace ProjectWeekVincent
                                                     }
                                                     break;
                                                 case 2:
+
                                                     if (WaardeHand(handSpeler) == 21)
                                                     {
-                                                        Console.WriteLine("Je hebt gewonnen er is 25 euro aan je buget toegevoed");
+                                                        
+                                                        Console.WriteLine("Je hebt gewonnen er is 25 euro aan je buget toegevoed.");
                                                         gebruikers[gebruiker, 2] = Convert.ToString(Convert.ToInt32(gebruikers[gebruiker, 2]) + 25);
                                                         SlaagGebruikersOp(gebruikers, bestandsnaam);
                                                         runninggame = false;
@@ -218,9 +221,11 @@ namespace ProjectWeekVincent
                                                             TrekKaarten(handDealer, kaartenboek, random);
                                                         }
 
-                                                        if (WaardeHand(handDealer) >= 21)
+                                                        if (WaardeHand(handDealer) > 21)
                                                         {
-                                                            Console.WriteLine("Je hebt gewonnen er is 20 euro aan je buget toegevoed");
+                                                            Console.Write($"De Dealer had: ");
+                                                            LaatBoekKaartenAfdrukken(handDealer);
+                                                            Console.WriteLine("Je hebt gewonnen er is 20 euro aan je buget toegevoed.");
                                                             gebruikers[gebruiker, 2] = Convert.ToString(Convert.ToInt32(gebruikers[gebruiker, 2]) + 20);
                                                             SlaagGebruikersOp(gebruikers, bestandsnaam);
                                                             runninggame = false;
@@ -228,21 +233,27 @@ namespace ProjectWeekVincent
                                                         }
                                                         else if (WaardeHand(handDealer) > WaardeHand(handSpeler))
                                                         {
-                                                            Console.WriteLine("Je hebt verloren er is 10 euro van je buget afgehaald");
+                                                            Console.Write($"De Dealer had: ");
+                                                            LaatBoekKaartenAfdrukken(handDealer);
+                                                            Console.WriteLine("Je hebt verloren er is 10 euro van je buget afgehaald.");
                                                             gebruikers[gebruiker, 2] = Convert.ToString(Convert.ToInt32(gebruikers[gebruiker, 2]) -10);
                                                             SlaagGebruikersOp(gebruikers, bestandsnaam);
                                                             runninggame = false;
                                                         }
                                                         else if (WaardeHand(handDealer) == 21)
                                                         {
-                                                            Console.WriteLine("Je hebt verloren er is 10 euro van je buget afgehaald");
+                                                            Console.Write($"De Dealer had: ");
+                                                            LaatBoekKaartenAfdrukken(handDealer);
+                                                            Console.WriteLine("Je hebt verloren er is 10 euro van je buget afgehaald.");
                                                             gebruikers[gebruiker, 2] = Convert.ToString(Convert.ToInt32(gebruikers[gebruiker, 2]) - 10);
                                                             SlaagGebruikersOp(gebruikers, bestandsnaam);
                                                             runninggame = false;
                                                         }
                                                         else
                                                         {
-                                                            Console.WriteLine("Je hebt verloren er is 10 euro van je buget afgehaald");
+                                                            Console.Write($"De Dealer had: ");
+                                                            LaatBoekKaartenAfdrukken(handDealer);
+                                                            Console.WriteLine("Je hebt niets verloren.");
                                                             gebruikers[gebruiker, 2] = Convert.ToString(Convert.ToInt32(gebruikers[gebruiker, 2]) - 10);
                                                             SlaagGebruikersOp(gebruikers, bestandsnaam);
                                                             runninggame = false;
@@ -263,10 +274,59 @@ namespace ProjectWeekVincent
                             Console.WriteLine("2. Slotmachien: ");
                             break;
                         case 3:
-                            Console.WriteLine("3. Memorie: ");
+
+                            bool runningMemory = true;
+                            
+                            Console.OutputEncoding = System.Text.Encoding.Unicode;
+                            string[] memory = { "♥", "♥", "♦", "♦", "♣", "♣", "♠", "♠" };
+                            string[] oplossing = new string[8];                          
+
+                            while (runningMemory)
+                            {
+                                Console.WriteLine("1. Speel Spel");
+                                Console.WriteLine("2. Stop");
+                                keuze = InputIntKeuze(2);
+                                Console.Clear();
+                                switch (keuze)
+                                {
+                                    case 1:
+
+                                        oplossing = MaakMemory(memory, random);
+                                        LeesMemory(oplossing);
+
+                                        Console.WriteLine("Geef nu de tekens in de juiste volgorde in:");
+                                        Console.WriteLine("01234567");
+                                        string antwoordSpeler = Console.ReadLine();
+
+                                        if (AntwoordJuist(oplossing, antwoordSpeler))
+                                        {
+
+                                            Console.WriteLine("Je hebt gewonnen er is 10 euro aan je buget toegevoed.");
+                                            gebruikers[gebruiker, 2] = Convert.ToString(Convert.ToInt32(gebruikers[gebruiker, 2]) + 10);
+                                            SlaagGebruikersOp(gebruikers, bestandsnaam);
+
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Je hebt verloren er is 20 euro van je buget afgehaald.");
+                                            gebruikers[gebruiker, 2] = Convert.ToString(Convert.ToInt32(gebruikers[gebruiker, 2]) - 20);
+                                            SlaagGebruikersOp(gebruikers, bestandsnaam);
+
+                                        }
+
+                                        break;
+                                    case 2:
+                                        runningMemory = false;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+
                             break;
                         case 4:
                             Console.WriteLine("4. Uitloggen: ");
+                            SlaagGebruikersOp(gebruikers, bestandsnaam);
                             loggedIn = false;
                             break;
                         default:
@@ -632,8 +692,8 @@ namespace ProjectWeekVincent
                 Console.Write(hand[i] + " ");
 
             }
+            Console.WriteLine();
         }
-
         static int CheckEmptySpot(string[] hand)
         {
             int emptySpot = -1;
@@ -689,6 +749,98 @@ namespace ProjectWeekVincent
                 }
             }
             return waarde;
-        }     
+        }
+        static string[] MaakMemory(string[] memory, Random random)
+        {
+
+            string[] temp = new string[8];
+            for (int i = 0; i < memory.Length; i++)
+            {
+                temp[i] = memory[random.Next(0, 8)];
+            }
+            return memory;
+
+        }
+        static void LeesMemory(string[] oplossing)
+        {
+
+            Console.Clear();
+            Console.WriteLine("0|1|2|3|4|5|6|7|");
+
+            for (int i = 0; i < oplossing.Length; i++)
+            {
+                switch (oplossing[i])
+                {
+                    case "♥":
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write(oplossing[i] + " ");
+                        break;
+                    case "♦":
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write(oplossing[i] + " ");
+                        break;
+                    case "♣":
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write(oplossing[i] + " ");
+                        break;
+                    case "♠":
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.Write(oplossing[i] + " ");
+                        break;
+
+                }
+            }
+
+            Console.ResetColor();
+            Console.WriteLine();
+            Console.WriteLine("Je krijgt nu 15 seconden dit te onthouden.");
+            System.Threading.Thread.Sleep(10000);
+            Console.Clear();
+
+            Console.WriteLine("Gebruik 1 voor ♥");
+            Console.WriteLine("Gebruik 2 voor ♦");
+            Console.WriteLine("Gebruik 3 voor ♣");
+            Console.WriteLine("Gebruik 4 voor ♠");
+
+        }
+        static bool AntwoordJuist(string[] oplossing, string antwoord)
+        {
+            for (int i = 0; i < oplossing.Length; i++)
+            {
+                switch (antwoord.ElementAt(i))
+                {
+
+                    case '1':
+                        if ("♥" != oplossing[i])
+                        {
+                            return false;
+                        }
+                        break;
+
+                    case '2':
+                        if ("♦" != oplossing[i])
+                        {
+                            return false;
+                        }
+                        break;
+
+                    case '3':
+                        if ("♣" != oplossing[i])
+                        {
+                            return false;
+                        }
+                        break;
+
+                    case '4':
+                        if ("♠" != oplossing[i])
+                        {
+                            return false;
+                        }
+                        break;
+
+                }
+            }
+            return true;
+        }
     }
 }
