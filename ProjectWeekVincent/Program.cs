@@ -295,7 +295,7 @@ namespace ProjectWeekVincent
                                         for (int i = 0; i < 50; i++)
                                         {
                                             PrintSlotMachien(slotMachien);
-
+                                            Draai(slotMachien,random);
                                         }
                                         if (WinstDiagonaal(slotMachien) + WinstHorizontaal(slotMachien) != 0)
                                         {
@@ -308,7 +308,7 @@ namespace ProjectWeekVincent
                                         else
                                         {
                                             
-                                            Console.WriteLine("Er is geen 3 op een rij, jameeur");
+                                            Console.WriteLine("Er is geen 3 op een rij, Er staat nu 5 euro minder in uw buget");
                                             gebruikers[gebruiker, 2] = Convert.ToString(Convert.ToInt32(gebruikers[gebruiker, 2]) - 5);
                                             SlaagGebruikersOp(gebruikers, bestandsnaam);
                                         }
@@ -331,6 +331,7 @@ namespace ProjectWeekVincent
 
                             while (runningMemory)
                             {
+                                Console.Clear();
                                 Console.WriteLine("1. Speel Spel");
                                 Console.WriteLine("2. Stop");
                                 keuze = InputIntKeuze(2);
@@ -818,7 +819,7 @@ namespace ProjectWeekVincent
             {
                 temp[i] = memory[random.Next(0, 8)];
             }
-            return memory;
+            return temp;
 
         }
         static void LeesMemory(string[] oplossing)
