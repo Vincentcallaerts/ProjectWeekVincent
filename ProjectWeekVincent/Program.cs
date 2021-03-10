@@ -25,7 +25,7 @@ namespace ProjectWeekVincent
             int gebruiker = 0;
             int counter = 0;
             int laatsteKeuze = 0;
-
+            Random random = new Random();
 
             //gebruiker maken volgende stap.
 
@@ -35,7 +35,8 @@ namespace ProjectWeekVincent
                 if (loggedIn == false)
                 {
                     Console.Clear();
-                  
+                    gebruikers = EmptyGebruikers();
+
                     ReadUsersInUsers(bestandsnaam, gebruikers);
                     LaatGebruikersZien(gebruikers);
                     Console.WriteLine("1. Gebruiker toevoegen");
@@ -60,6 +61,7 @@ namespace ProjectWeekVincent
                             laatsteKeuze = 1;
                             Console.Clear();
                             maakGebruiker(gebruikers,bestandsnaam);
+                            
                             break;
 
                         case 2:
@@ -67,6 +69,7 @@ namespace ProjectWeekVincent
                             laatsteKeuze = 2;
                             Console.Clear();
                             GebruikerBewerken(gebruikers,bestandsnaam);
+                           
                             break;
 
                         case 3:
@@ -74,6 +77,7 @@ namespace ProjectWeekVincent
                             laatsteKeuze = 3;
                             Console.Clear();
                             GebruikerVerwijderen(gebruikers, bestandsnaam);
+                            
                             break;
 
                         case 4:
@@ -132,7 +136,8 @@ namespace ProjectWeekVincent
                     Console.WriteLine("3. Memorie ");
                     Console.WriteLine("4. Uitloggen ");
                     keuze = InputIntKeuze(4);
-                    Random random = new Random();
+                    
+
                     switch (keuze)
                     {
                         case 1:
@@ -142,7 +147,7 @@ namespace ProjectWeekVincent
                             string[,] kaartenboek = { { "A♥", "2♥", "3♥", "4♥", "5♥", "6♥", "7♥", "8♥", "9♥", "10♥", "J♥", "Q♥", "K♥" }, { "A♦", "2♦", "3♦", "4♦", "5♦", "6♦", "7♦", "8♦", "9♦", "10♦", "J♦", "Q♦", "K♦" }, { "A♣", "2♣", "3♣", "4♣", "5♣", "6♣", "7♣", "8♣", "9♣", "10♣", "J♣", "Q♣", "K♣" }, { "A♠", "2♠", "3♠", "4♠", "5♠", "6♠", "7♠", "8♠", "9♠", "10♠", "J♠", "Q♠", "K♠" } };
                             
                             bool runningBlackjack = true;
-                            bool runninggame = false;
+                            bool runningGame = false;
                             
 
                             while (runningBlackjack)
@@ -153,7 +158,7 @@ namespace ProjectWeekVincent
                                 Console.WriteLine("1. Speel Spel.");
                                 Console.WriteLine("2. Stop.");
                                 keuze = InputIntKeuze(2);
-                                runninggame = true;
+                                runningGame = true;
                                 switch (keuze)
                                 {
                                     case 1:
@@ -168,10 +173,10 @@ namespace ProjectWeekVincent
                                             Console.WriteLine("Je hebt gewonnen er is 25 euro aan je buget toegevoed.");
                                             gebruikers[gebruiker, 2] = Convert.ToString(Convert.ToInt32(gebruikers[gebruiker, 2]) + 25);
                                             SlaagGebruikersOp(gebruikers, bestandsnaam);
-                                            runninggame = false;
+                                            runningGame = false;
                                         }
                                         
-                                        while (runninggame)
+                                        while (runningGame)
                                         {
                                             LaatBoekKaartenAfdrukken(handSpeler);
                                             Console.WriteLine();
@@ -190,7 +195,7 @@ namespace ProjectWeekVincent
                                                         Console.WriteLine("Je hebt gewonnen er is 25 euro aan je buget toegevoed.");
                                                         gebruikers[gebruiker, 2] = Convert.ToString(Convert.ToInt32(gebruikers[gebruiker, 2]) + 25);
                                                         SlaagGebruikersOp(gebruikers, bestandsnaam);
-                                                        runninggame = false; ;
+                                                        runningGame = false; ;
                                                     }
                                                  
                                                     else if (WaardeHand(handSpeler) >= 21)
@@ -198,7 +203,7 @@ namespace ProjectWeekVincent
                                                         Console.WriteLine("Je hebt verloren er is 10 euro van je buget afgehaald.");
                                                         gebruikers[gebruiker, 2] = Convert.ToString(Convert.ToInt32(gebruikers[gebruiker, 2]) - 10);
                                                         SlaagGebruikersOp(gebruikers, bestandsnaam);
-                                                        runninggame = false;
+                                                        runningGame = false;
 
                                                     }
                                                     break;
@@ -210,7 +215,7 @@ namespace ProjectWeekVincent
                                                         Console.WriteLine("Je hebt gewonnen er is 25 euro aan je buget toegevoed.");
                                                         gebruikers[gebruiker, 2] = Convert.ToString(Convert.ToInt32(gebruikers[gebruiker, 2]) + 25);
                                                         SlaagGebruikersOp(gebruikers, bestandsnaam);
-                                                        runninggame = false;
+                                                        runningGame = false;
                                                     }
                                                     else
                                                     {
@@ -228,7 +233,7 @@ namespace ProjectWeekVincent
                                                             Console.WriteLine("Je hebt gewonnen er is 20 euro aan je buget toegevoed.");
                                                             gebruikers[gebruiker, 2] = Convert.ToString(Convert.ToInt32(gebruikers[gebruiker, 2]) + 20);
                                                             SlaagGebruikersOp(gebruikers, bestandsnaam);
-                                                            runninggame = false;
+                                                            runningGame = false;
 
                                                         }
                                                         else if (WaardeHand(handDealer) > WaardeHand(handSpeler))
@@ -238,7 +243,7 @@ namespace ProjectWeekVincent
                                                             Console.WriteLine("Je hebt verloren er is 10 euro van je buget afgehaald.");
                                                             gebruikers[gebruiker, 2] = Convert.ToString(Convert.ToInt32(gebruikers[gebruiker, 2]) -10);
                                                             SlaagGebruikersOp(gebruikers, bestandsnaam);
-                                                            runninggame = false;
+                                                            runningGame = false;
                                                         }
                                                         else if (WaardeHand(handDealer) == 21)
                                                         {
@@ -247,7 +252,7 @@ namespace ProjectWeekVincent
                                                             Console.WriteLine("Je hebt verloren er is 10 euro van je buget afgehaald.");
                                                             gebruikers[gebruiker, 2] = Convert.ToString(Convert.ToInt32(gebruikers[gebruiker, 2]) - 10);
                                                             SlaagGebruikersOp(gebruikers, bestandsnaam);
-                                                            runninggame = false;
+                                                            runningGame = false;
                                                         }
                                                         else
                                                         {
@@ -256,7 +261,7 @@ namespace ProjectWeekVincent
                                                             Console.WriteLine("Je hebt niets verloren.");
                                                             gebruikers[gebruiker, 2] = Convert.ToString(Convert.ToInt32(gebruikers[gebruiker, 2]) - 10);
                                                             SlaagGebruikersOp(gebruikers, bestandsnaam);
-                                                            runninggame = false;
+                                                            runningGame = false;
                                                         }
                                                     }
                                                     break;
@@ -265,13 +270,56 @@ namespace ProjectWeekVincent
                                         break;
                                     case 2:
                                         runningBlackjack = false;
-                                        runninggame = false;
+                                        runningGame = false;
                                         break;                                 
                                 }
                             }
                             break;
                         case 2:
-                            Console.WriteLine("2. Slotmachien: ");
+
+                            Console.OutputEncoding = System.Text.Encoding.Unicode;
+                            
+                            string[,] slotMachien = { { "♥", "♣", "♦", "♠", "A", "B", "7" }, { "♥", "♣", "♦", "♠", "A", "B", "7" }, { "♥", "♣", "♦", "♠", "A", "B", "7" } };
+                            bool runningSlots = true;
+                           
+                            PrintSlotMachien(slotMachien);
+
+                            while (runningSlots)
+                            {
+                                Console.WriteLine("1. Spin");
+                                Console.WriteLine("2. Stop");
+                                keuze = InputIntKeuze(2);
+                                switch (keuze)
+                                {
+                                    case 1:
+                                        for (int i = 0; i < 50; i++)
+                                        {
+                                            PrintSlotMachien(slotMachien);
+
+                                        }
+                                        if (WinstDiagonaal(slotMachien) + WinstHorizontaal(slotMachien) != 0)
+                                        {
+                                            Console.WriteLine($"Je winst is in het totaal: {WinstHorizontaal(slotMachien) + " " + WinstDiagonaal(slotMachien)} = {WinstDiagonaal(slotMachien) + WinstHorizontaal(slotMachien)}");
+                                            Console.WriteLine("Deze wordt bij je buget opgetelt");
+                                            gebruikers[gebruiker, 2] = Convert.ToString(Convert.ToInt32(gebruikers[gebruiker, 2]) + WinstDiagonaal(slotMachien) + WinstHorizontaal(slotMachien));
+                                            SlaagGebruikersOp(gebruikers, bestandsnaam);
+
+                                        }
+                                        else
+                                        {
+                                            
+                                            Console.WriteLine("Er is geen 3 op een rij, jameeur");
+                                            gebruikers[gebruiker, 2] = Convert.ToString(Convert.ToInt32(gebruikers[gebruiker, 2]) - 5);
+                                            SlaagGebruikersOp(gebruikers, bestandsnaam);
+                                        }
+                                        
+                                        break;
+                                    case 2:
+                                        runningSlots = false;
+                                        break;
+
+                                }
+                            }
                             break;
                         case 3:
 
@@ -325,6 +373,7 @@ namespace ProjectWeekVincent
 
                             break;
                         case 4:
+                            laatsteKeuze = 0;
                             Console.WriteLine("4. Uitloggen: ");
                             SlaagGebruikersOp(gebruikers, bestandsnaam);
                             loggedIn = false;
@@ -363,9 +412,11 @@ namespace ProjectWeekVincent
         }
         static void ReadUsersInUsers(string bestandsnaam, string[,] gebruikers)
         {
+          
 
             if (File.Exists(bestandsnaam))
             {
+                
                 using (StreamReader reader = new StreamReader(bestandsnaam))
                 {
                     while (!reader.EndOfStream)
@@ -402,6 +453,13 @@ namespace ProjectWeekVincent
 
 
         }
+
+        private static string[,] EmptyGebruikers()
+        {
+            string[,] gebruikersnew = new string[6, 3];
+            return gebruikersnew;
+        }
+
         static void LaatGebruikersZien(string[,] gebruikers)
         {
             for (int i = 0; i < gebruikers.Length / 3; i++)
@@ -519,16 +577,18 @@ namespace ProjectWeekVincent
         {
             if (File.Exists(bestandsnaam))
             {
+                File.Delete(bestandsnaam);
+
                 using (StreamWriter writer = new StreamWriter(bestandsnaam))
                 {
+
                     for (int i = 0; i < gebruikers.Length / 3; i++)
                     {
                         if (gebruikers[i,0] != null)
                         {
                             writer.WriteLine($"{gebruikers[i, 0]},{gebruikers[i, 1]},{gebruikers[i, 2]}");
                         }
-                        
-                        
+                                              
                     }
                 }
             }
@@ -841,6 +901,202 @@ namespace ProjectWeekVincent
                 }
             }
             return true;
+        }
+
+        static void PrintSlotMachien(string[,] slotMachien)
+        {
+            Console.Clear();
+            Console.WriteLine("===============");
+
+            for (int i = 0; i < 3; i++)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("$$$");
+                Console.ResetColor();
+                for (int j = 0; j < 3; j++)
+                {
+                    if (j == 0)
+                    {
+                        Console.ResetColor();
+                    }
+                    Console.Write("|");
+                    switch (slotMachien[i, j])
+                    {
+
+                        case "♥":
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write($"{slotMachien[i, j]}");
+                            break;
+
+                        case "♣":
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write($"{slotMachien[i, j]}");
+                            break;
+
+                        case "♦":
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.Write($"{slotMachien[i, j]}");
+                            break;
+
+                        case "♠":
+                            Console.ForegroundColor = ConsoleColor.Blue;
+                            Console.Write($"{slotMachien[i, j]}");
+                            break;
+
+                        default:
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            Console.Write($"{slotMachien[i, j]}");
+                            break;
+                    }
+                    if (j == 2)
+                    {
+                        Console.ResetColor();
+                    }
+                    Console.Write("|");
+                }
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("$$$");
+                Console.ResetColor();
+                Console.WriteLine();
+            }
+            Console.ResetColor();
+            Console.WriteLine("===============");
+            System.Threading.Thread.Sleep(200);
+
+        }
+        static string[,] Draai(string[,] slotMachien, Random random)
+        {
+            string[,] temp = slotMachien;
+            int temprandom;
+            string tempstorage = string.Empty;
+
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 7; j++)
+                {
+                    temprandom = random.Next(0, 7);
+                    tempstorage = temp[0, i];
+                    temp[0, i] = temp[i, temprandom];
+                    temp[i, temprandom] = tempstorage;
+                }
+
+            }
+            return temp;
+        }
+        static int WinstHorizontaal(string[,] slotMachien)
+        {
+            //"♥" = 1, "♣" = 2, "♦" = 3, "♠" = 4,"A" = 5,"B" = 6,"7" = 7
+            int winst = 0;
+            for (int i = 0; i < slotMachien.Length / 7; i++)
+            {
+                if (slotMachien[i, 0] == slotMachien[i, 1] && slotMachien[i, 2] == slotMachien[i, 1])
+                {
+                    switch (slotMachien[i, 0])
+                    {
+                        case "♥":
+                            winst++;
+                            break;
+
+                        case "♣":
+                            winst += 2;
+                            break;
+
+                        case "♦":
+                            winst += 3;
+                            break;
+
+                        case "♠":
+                            winst += 4;
+                            break;
+                        case "A":
+                            winst += 5;
+                            break;
+
+                        case "B":
+                            winst += 6;
+                            break;
+
+                        case "7":
+                            winst += 7;
+                            break;
+
+                    }
+                }
+            }
+            return winst;
+        }
+        private static int WinstDiagonaal(string[,] slotMachien)
+        {
+            //"♥" = 1, "♣" = 2, "♦" = 3, "♠" = 4,"A" = 5,"B" = 6,"7" = 7
+            int winst = 0;
+
+            if (slotMachien[0, 0] == slotMachien[1, 1] && slotMachien[1, 1] == slotMachien[2, 2])
+            {
+                switch (slotMachien[0, 0])
+                {
+                    case "♥":
+                        winst++;
+                        break;
+
+                    case "♣":
+                        winst += 2;
+                        break;
+
+                    case "♦":
+                        winst += 3;
+                        break;
+
+                    case "♠":
+                        winst += 4;
+                        break;
+                    case "A":
+                        winst += 5;
+                        break;
+
+                    case "B":
+                        winst += 6;
+                        break;
+
+                    case "7":
+                        winst += 7;
+                        break;
+
+                }
+            }
+            if (slotMachien[2, 0] == slotMachien[1, 1] && slotMachien[1, 1] == slotMachien[0, 2])
+            {
+                switch (slotMachien[2, 0])
+                {
+                    case "♥":
+                        winst++;
+                        break;
+
+                    case "♣":
+                        winst += 2;
+                        break;
+
+                    case "♦":
+                        winst += 3;
+                        break;
+
+                    case "♠":
+                        winst += 4;
+                        break;
+                    case "A":
+                        winst += 5;
+                        break;
+
+                    case "B":
+                        winst += 6;
+                        break;
+
+                    case "7":
+                        winst += 7;
+                        break;
+
+                }
+            }
+            return winst;
         }
     }
 }
